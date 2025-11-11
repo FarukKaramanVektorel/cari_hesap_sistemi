@@ -2,7 +2,7 @@
 $host = 'localhost';
 $dbname = 'cari_hesap'; // Oluşturduğunuz veritabanının adı
 $username = 'root';           // Veritabanı kullanıcı adınız
-$password = '1234';               // Veritabanı şifreniz
+$password = '4569?.*dfgfdYgd56931-?';               // Veritabanı şifreniz
 
 
 ini_set('display_errors', 0); // Hataları ekranda gösterme
