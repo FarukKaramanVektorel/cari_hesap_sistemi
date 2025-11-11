@@ -1,12 +1,7 @@
 <?php
-// GÜVENLİK NOTU: Bu dosya index.php tarafından çağrılır.
-// $musteri, $bakiye ve $hareketler değişkenleri index.php'den gelir.
-
-// Hata/Başarı mesajları için (örn: yeni hareket eklenince)
 if (isset($_GET['success']) && $_GET['success'] == 'hareket_eklendi') {
     echo '<div class="alert alert-success">Yeni hareket başarıyla eklendi. Bakiye güncellendi.</div>';
 }
-
 if (isset($_GET['error'])) {
     $error_mesaji = "Bilinmeyen bir hata oluştu."; // Varsayılan
     if ($_GET['error'] == 'hareket_bos') {
@@ -16,7 +11,6 @@ if (isset($_GET['error'])) {
     } elseif ($_GET['error'] == 'hareket_kayit') {
         $error_mesaji = "Hata: Hareket veritabanına kaydedilemedi.";
     }
-
     echo '<div class="alert alert-danger">' . htmlspecialchars($error_mesaji) . '</div>';
 }
 ?>
@@ -36,7 +30,7 @@ if (isset($_GET['error'])) {
 
                 <p><strong>Müşteri Notu:</strong></p>
                 <div class="alert alert-info">
-                    <?= nl2br(htmlspecialchars($musteri['note'])) // nl2br: satır atlamalarını <br>'a çevirir ?>
+                    <?= nl2br(htmlspecialchars($musteri['note'])) ?>
                 </div>
             </div>
 

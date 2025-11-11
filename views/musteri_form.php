@@ -1,8 +1,4 @@
 <?php
-// GÜVENLİK NOTU: Bu dosya index.php tarafından çağrılır.
-
-// Eğer bir hata ile geri yönlendirme olduysa (örn: ad boş bırakıldıysa)
-// index.php'den gelen hata mesajını burada gösterelim
 $error_mesaji = '';
 if (isset($_GET['error'])) {
     if ($_GET['error'] == 'bos') {

@@ -10,5 +10,32 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
+
+<script>
+    $(document).ready(function() {
+        $('#musteri-tablosu').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "ajax_musteriler.php",
+                "type": "POST"
+            },
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json"
+            },
+            "columns": [
+                null,
+                null,
+                { "className": "text-end" },
+                { "className": "text-center" },
+                {
+                    "className": "text-center",
+                    "orderable": false,
+                    "searchable": false
+                }
+            ]
+        });
+    });
+</script>
 </body>
 </html>
