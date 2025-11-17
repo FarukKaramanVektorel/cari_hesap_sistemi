@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute([$email]);
         $kullanici = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($kullanici && password_verify($password, $kullanici['password'])) {
+            session_regenerate_id(true);
             $_SESSION['kullanici_id'] = $kullanici['id'];
             $_SESSION['kullanici_email'] = $kullanici['email'];
             header("Location: index.php?page=dashboard");

@@ -42,7 +42,15 @@ if (isset($_SESSION['kullanici_id'])):
                         <a class="nav-link" href="index.php?page=musteriler">Müşteriler</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <span class="navbar-text me-3">
+                            <?= htmlspecialchars($_SESSION['kullanici_email']) ?>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=sifre_degistir">Şifre Değiştir</a>
+                    </li>
                     <li class="nav-item">
                         <a class="btn btn-danger" href="logout.php">Güvenli Çıkış</a>
                     </li>

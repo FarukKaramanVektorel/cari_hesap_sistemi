@@ -13,12 +13,16 @@
 
 <script>
     $(document).ready(function() {
-        $('#musteri-tablosu').DataTable({
+        var table = $('#musteri-tablosu').DataTable({ // Değişkene atadık
             "processing": true,
             "serverSide": true,
             "ajax": {
                 "url": "ajax_musteriler.php",
-                "type": "POST"
+                "type": "POST",
+                "data": function(d) {
+                    // Checkbox durumunu sunucuya gönderilecek verilere ekliyoruz
+                    d.sadece_borclular = $('#borcFilter').is(':checked') ? 1 : 0;
+                }
             },
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json"
@@ -34,6 +38,11 @@
                     "searchable": false
                 }
             ]
+        });
+
+        // Checkbox değiştiğinde tabloyu yenile
+        $('#borcFilter').change(function() {
+            table.ajax.reload();
         });
     });
 </script>

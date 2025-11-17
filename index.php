@@ -2,6 +2,7 @@
 require_once __DIR__ . '/views/includes/header.php';
 require_once __DIR__ . '/models/Musteri.php';
 require_once __DIR__ . '/models/Hareket.php';
+require_once __DIR__ . '/models/Kullanici.php';
 $page = $_GET['page'] ?? 'dashboard';
 
 switch ($page) {
@@ -102,6 +103,60 @@ switch ($page) {
             header("Location: index.php?page=musteriler");
             exit;
         }
+        break;
+    case 'sifre_degistir':
+        require_once __DIR__ . '/views/sifre_degistir.php';
+        break;
+
+    case 'sifre_kaydet':
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            header("Location: index.php?page=sifre_degistir");
+            exit;
+        }
+
+        // Oturumdan kullanıcı ID'sini al (GÜVENLİ)
+        $kullanici_id = $_SESSION['kullanici_id'] ?? 0;
+        if (empty($kullanici_id)) {
+            header("Location: login.php"); // Oturum düşmüş, login'e yolla
+            exit;
+        }
+
+        // Formdan verileri al
+        $eski_sifre = $_POST['eski_sifre'] ?? null;
+        $yeni_sifre = $_POST['yeni_sifre'] ?? null;
+        $yeni_sifre_onay = $_POST['yeni_sifre_onay'] ?? null;
+
+        // 1. Doğrulama: Alanlar boş mu?
+        if (empty($eski_sifre) || empty($yeni_sifre) || empty($yeni_sifre_onay)) {
+            header("Location: index.php?page=sifre_degistir&error=bos");
+            exit;
+        }
+
+        // 2. Doğrulama: Yeni şifreler uyuşuyor mu?
+        if ($yeni_sifre !== $yeni_sifre_onay) {
+            header("Location: index.php?page=sifre_degistir&error=uyusmuyor");
+            exit;
+        }
+
+        // 3. Doğrulama: Mevcut şifre doğru mu?
+        $kullanici = Kullanici::getir($db, $kullanici_id);
+        if (!$kullanici || !password_verify($eski_sifre, $kullanici['password'])) {
+            header("Location: index.php?page=sifre_degistir&error=eski_sifre_yanlis");
+            exit;
+        }
+
+        // 4. İşlem: Tüm doğrulamalar başarılı, şifreyi güncelle
+        $yeni_sifre_hash = password_hash($yeni_sifre, PASSWORD_DEFAULT);
+        $basarili = Kullanici::sifreGuncelle($db, $kullanici_id, $yeni_sifre_hash);
+
+        if ($basarili) {
+            header("Location: index.php?page=sifre_degistir&success=1");
+            exit;
+        } else {
+            header("Location: index.php?page=sifre_degistir&error=guncelleme_hatasi");
+            exit;
+        }
+
         break;
     default:
         echo "<div class='alert alert-danger'>Hata: Aradığınız sayfa ('" . htmlspecialchars($page) . "') bulunamadı.</div>";

@@ -2,7 +2,7 @@
 $host = 'localhost';
 $dbname = 'cari_hesap'; // Oluşturduğunuz veritabanının adı
 $username = 'root';           // Veritabanı kullanıcı adınız
-$password = '4569?.*dfgfdYgd56931-?';               // Veritabanı şifreniz
+$password = '1234';               // Veritabanı şifreniz
 
 
 ini_set('display_errors', 0); // Hataları ekranda gösterme
@@ -17,5 +17,6 @@ try {
     );
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Veritabanı bağlantı hatası: " . $e->getMessage());
+    error_log($e->getMessage());
+    die("Veritabanı bağlantı hatası oluştu. Lütfen yönetici ile iletişime geçin.");
 }

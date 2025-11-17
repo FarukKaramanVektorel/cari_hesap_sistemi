@@ -8,16 +8,18 @@ if (isset($_GET['success']) && $_GET['success'] == 'eklendi') {
     <div class="col-12 d-flex justify-content-between align-items-center mb-3">
         <h2>Müşteri Listesi</h2>
         <div>
-            <a href="excel_aktar.php" target="_blank" class="btn btn-success me-2">
-                Excele Aktar
-            </a>
-            <a href="index.php?page=musteri_ekle" class="btn btn-primary">
-                Yeni Müşteri Ekle
-            </a>
         </div>
     </div>
 </div>
 
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="borcFilter">
+            <label class="form-check-label fw-bold" for="borcFilter">Sadece Borcu Olanları (Alacaklı Olduklarımızı) Listele</label>
+        </div>
+    </div>
+</div>
 <div class="table-responsive">
     <table id="musteri-tablosu" class="table table-striped table-bordered" style="width:100%">
         <thead class="table-dark">

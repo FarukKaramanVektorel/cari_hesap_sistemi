@@ -16,8 +16,9 @@ $search_value = $_POST['search']['value'] ?? '';
 $limit = $length;
 $offset = $start;
 $arama_terimi = $search_value;
-$musteriler = Musteri::listelePaging($db, $arama_terimi, $offset, $limit);
-$toplam_kayit_filtreli = Musteri::getToplamMusteriFiltreli($db, $arama_terimi);
+$sadece_borclular = $_POST['sadece_borclular'] ?? 0;
+$musteriler = Musteri::listelePaging($db, $arama_terimi, $offset, $limit, $sadece_borclular);
+$toplam_kayit_filtreli = Musteri::getToplamMusteriFiltreli($db, $arama_terimi, $sadece_borclular);
 $toplam_kayit = Musteri::getToplamMusteriFiltreli($db, '');
 $data = [];
 foreach ($musteriler as $musteri) {

@@ -85,7 +85,7 @@ if (isset($_GET['error'])) {
             <div class="col-md-3">
                 <label for="tarih" class="form-label">İşlem Tarihi *</label>
                 <input type="datetime-local" class="form-control" id="tarih" name="tarih"
-                       value="<?= date('Y-m-d') ?>" required>
+                       value="<?= date('Y-m-d\TH:i') ?>" required>
             </div>
 
             <div class="col-md-3">
