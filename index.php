@@ -77,6 +77,44 @@ switch ($page) {
             exit;
         }
         break;
+    case 'hareket_sil':
+        $id = $_GET['id'] ?? 0;
+        $musteri_id = $_GET['musteri_id'] ?? 0;
+
+        if ($id && $musteri_id) {
+            if (Hareket::sil($db, $id)) {
+                header("Location: index.php?page=musteri_detay&id=$musteri_id&success=hareket_silindi");
+            } else {
+                header("Location: index.php?page=musteri_detay&id=$musteri_id&error=silme_hatasi");
+            }
+        } else {
+            header("Location: index.php?page=musteriler");
+        }
+        exit;
+        break;
+
+    case 'hareket_guncelle':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $hareket_id = $_POST['hareket_id'] ?? 0;
+            $musteri_id = $_POST['musteri_id'] ?? 0;
+            $miktar = $_POST['miktar'] ?? 0;
+            $hareket_tipi = $_POST['hareket_tipi'] ?? null;
+            $tarih_input = $_POST['tarih'] ?? null;
+            $aciklama = $_POST['aciklama'] ?? null;
+
+            try {
+                $tarih_formatli = date('Y-m-d H:i:s', strtotime($tarih_input));
+                if (Hareket::guncelle($db, $hareket_id, $tarih_formatli, $miktar, $hareket_tipi, $aciklama)) {
+                    header("Location: index.php?page=musteri_detay&id=$musteri_id&success=hareket_guncellendi");
+                } else {
+                    header("Location: index.php?page=musteri_detay&id=$musteri_id&error=guncelleme_hatasi");
+                }
+            } catch (Exception $e) {
+                header("Location: index.php?page=musteri_detay&id=$musteri_id&error=gecersiz_tarih");
+            }
+        }
+        exit;
+        break;
     case 'musteri_kaydet':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $ad = $_POST['ad'] ?? null;
