@@ -1,5 +1,5 @@
 </div> <footer class="text-center text-muted mt-5 mb-3">
-    <small>&copy; <?= date('Y') ?> Cari Hesap Takip Sistemi</small>
+    <small>&copy; <?= date('Y') ?> Cari Hesap Takip Sistemi <b>by Faruqi</b></small>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
